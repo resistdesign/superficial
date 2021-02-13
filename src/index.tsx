@@ -1,4 +1,4 @@
-import React, { ComponentType, FC, useMemo } from 'react';
+import React, { FC, ReactNode, useMemo } from 'react';
 
 type StringObject = { [key: string]: string };
 
@@ -41,13 +41,18 @@ export const getDataProps = (data: any, terminate = false): { [key: string]: str
   }
 };
 
+export type SuperficialComponentFactoryConfig = { name: string; data: any };
+export type SuperficialFactoryComponentProps = SuperficialComponentFactoryConfig & { children: ReactNode };
+export type SuperficialFactoryComponent = FC<SuperficialFactoryComponentProps>;
+export type SuperficialComponentFactory = (config: SuperficialComponentFactoryConfig) => SuperficialFactoryComponent | undefined;
+
 export type SuperficialProps = {
   name: string;
   data: any;
-  getComponent?: (info: { name: string; data: any }) => ComponentType;
+  componentFactory?: SuperficialComponentFactory;
 };
 
-export const Superficial: FC<SuperficialProps> = ({ name, data, getComponent }) => {
+export const Superficial: FC<SuperficialProps> = ({ name, data, componentFactory }) => {
   const dataProps = useMemo(() => {
     const dP = getPrefixedProps(getDataProps(data));
 
@@ -55,20 +60,21 @@ export const Superficial: FC<SuperficialProps> = ({ name, data, getComponent }) 
   }, [data]);
   const elements =
     data instanceof Array
-      ? data.map((item, i) => <Superficial key={`Element:${i}`} name={`${i}`} data={item} getComponent={getComponent} />)
+      ? data.map((item, i) => <Superficial key={`Element:${i}`} name={`${i}`} data={item} componentFactory={componentFactory} />)
       : data instanceof Object
-      ? Object.keys(data).map((k) => <Superficial key={`Element:${k}`} name={k} data={data[k]} getComponent={getComponent} />)
+      ? Object.keys(data).map((k) => <Superficial key={`Element:${k}`} name={k} data={data[k]} componentFactory={componentFactory} />)
       : `${data}`;
-  const Comp = (getComponent && getComponent({ name, data })) || 'div';
-  const compProps =
-    typeof Comp === 'string'
-      ? {
-          ...dataProps,
-          'data-meta-superficial-name': name,
-        }
-      : {};
+  const Comp = componentFactory && componentFactory({ name, data });
 
-  return <Comp {...compProps}>{elements}</Comp>;
+  return Comp ? (
+    <Comp name={name} data={data}>
+      {elements}
+    </Comp>
+  ) : (
+    <div data-meta-superficial-name={name} {...dataProps}>
+      {elements}
+    </div>
+  );
 };
 
 export default Superficial;
