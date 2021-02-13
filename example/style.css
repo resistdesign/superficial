@@ -21,20 +21,20 @@ div {
     gap: 0.5em;
 }
 
-[data-meta-superficial-name='comments'],
-[data-meta-superficial-name='errors'],
-[data-meta-superficial-name='exportKind'],
-[data-meta-superficial-name='imported'],
-[data-meta-superficial-name='imported'][data-superficial-type='Identifier'],
-[data-meta-superficial-name='importKind'],
-[data-meta-superficial-name='loc'],
-[data-meta-superficial-name='range'],
-[data-meta-superficial-name='raw'],
-[data-meta-superficial-name='source'],
-[data-meta-superficial-name='type'],
-[data-meta-superficial-name='value'] {
-    display: none;
-}
+/*[data-meta-superficial-name='comments'],*/
+/*[data-meta-superficial-name='errors'],*/
+/*[data-meta-superficial-name='exportKind'],*/
+/*[data-meta-superficial-name='imported'],*/
+/*[data-meta-superficial-name='imported'][data-superficial-type='Identifier'],*/
+/*[data-meta-superficial-name='importKind'],*/
+/*[data-meta-superficial-name='loc'],*/
+/*[data-meta-superficial-name='range'],*/
+/*[data-meta-superficial-name='raw'],*/
+/*[data-meta-superficial-name='source'],*/
+/*[data-meta-superficial-name='type'],*/
+/*[data-meta-superficial-name='value'] {*/
+/*    display: none;*/
+/*}*/
 
 [data-meta-superficial-name="properties"] {
     padding: 0;
