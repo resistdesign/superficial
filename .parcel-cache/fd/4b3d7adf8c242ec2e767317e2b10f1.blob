@@ -1,7 +1,0 @@
-div {
-    padding: 0.5em;
-}
-
-[data-meta-superficial-name="raw"] {
-    display: none;
-}
