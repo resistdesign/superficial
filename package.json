@@ -1,0 +1,34 @@
+{
+  "name": "@resistdesign/superficial",
+  "version": "1.0.0",
+  "description": "Easily convert data structures to React elements with data attributes that describe the properties of each item in the tree.",
+  "main": "src/index.tsx",
+  "scripts": {
+    "test": "TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\"}' mocha --inline-diffs --require ./mocha-ts-node-compat.js --timeout=30000 --ui exports './src/**/*.spec.{ts,tsx}'"
+  },
+  "keywords": [],
+  "author": "Ryan Graff",
+  "license": "ISC",
+  "prettier": {
+    "printWidth": 150,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "devDependencies": {
+    "@types/expect.js": "^0.3.29",
+    "@types/react": "^17.0.2",
+    "@types/react-dom": "^17.0.1",
+    "eslint": "^7.20.0",
+    "expect.js": "^0.3.1",
+    "mocha": "^8.3.0",
+    "prettier": "^2.2.1",
+    "ts-node": "^9.1.1",
+    "tslib": "^2.1.0",
+    "typescript": "^4.1.5"
+  },
+  "dependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  }
+}
