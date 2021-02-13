@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Superficial Example</title>
+    <style>div {
+            padding: 0.5em;
+        }
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJtYXBwaW5ncyI6IkFBQUE7QUFDQSIsInNvdXJjZXMiOlsiLi9leGFtcGxlL2luZGV4Lmh0bWwiXSwic291cmNlc0NvbnRlbnQiOltudWxsXSwibmFtZXMiOltdLCJ2ZXJzaW9uIjozLCJmaWxlIjoiZXhhbXBsZS4xMDEzN2Q0Mi5jc3MubWFwIiwic291cmNlUm9vdCI6Ii9fX3BhcmNlbF9zb3VyY2Vfcm9vdC8ifQ== */
+</style>
+    <script src="/example.a13cba3e.js" defer=""></script>
+</head>
+<body>
+<div id="app-root"></div>
+</body>
+</html>

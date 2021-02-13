@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Superficial Example</title>
+    <link rel="stylesheet" href="/style.9b6c6900.css">
+    <script src="/example.a13cba3e.js" defer=""></script>
+</head>
+<body>
+<div id="app-root"></div>
+</body>
+</html>

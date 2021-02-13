@@ -1,0 +1,17 @@
+div {
+    padding: 0.5em;
+}
+
+[data-meta-superficial-name='raw'] {
+    display: none;
+}
+
+[data-meta-superficial-name='type'] {
+    background-color: lightgrey;
+    border-radius: 0.5em;
+}
+
+[data-meta-superficial-name='name'] {
+    background-color: lightseagreen;
+    border-radius: 0.5em;
+}

@@ -1,0 +1,48 @@
+body {
+    font-family: sans-serif;
+}
+
+div {
+    padding: 0.5em;
+}
+
+[data-meta-superficial-name='raw'] {
+    display: none;
+}
+
+[data-meta-superficial-name='type'] {
+    background-color: lightgrey;
+    border-radius: 0.5em;
+}
+
+[data-meta-superficial-name='name'] {
+    background-color: cornflowerblue;
+    border-radius: 0.5em;
+
+    color: white;
+}
+
+[data-meta-superficial-name='body'],
+[data-meta-superficial-name='range'],
+[data-meta-superficial-name='loc'],
+[data-meta-superficial-name='source'],
+[data-meta-superficial-name='start'],
+[data-meta-superficial-name='end'] {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+[data-meta-superficial-name='start'],
+[data-meta-superficial-name='end'] {
+    padding: 0;
+}
+
+[data-meta-superficial-name='source'] {
+    background-color: lightcyan;
+    font-family: monospace;
+    white-space: pre;
+}
+
+/*# sourceMappingURL=style.9b6c6900.css.map */

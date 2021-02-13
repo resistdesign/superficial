@@ -3,7 +3,7 @@ import SampleAST from './SampleAST';
 import Superficial from '../src';
 
 export const App: FC = () => {
-  return <Superficial data={SampleAST} />;
+  return <Superficial name="Base" data={SampleAST} />;
 };
 
 export default App;

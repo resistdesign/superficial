@@ -42,10 +42,11 @@ export const getDataProps = (data: any, terminate = false): { [key: string]: str
 };
 
 export type SuperficialProps = {
+  name: string;
   data: any;
 };
 
-export const Superficial: FC<SuperficialProps> = ({ data }) => {
+export const Superficial: FC<SuperficialProps> = ({ name, data }) => {
   const dataProps = useMemo(() => {
     const dP = getPrefixedProps(getDataProps(data));
 
@@ -53,12 +54,16 @@ export const Superficial: FC<SuperficialProps> = ({ data }) => {
   }, [data]);
   const elements =
     data instanceof Array
-      ? data.map((item, i) => <Superficial key={`Element:${i}`} data={item} />)
+      ? data.map((item, i) => <Superficial key={`Element:${i}`} name={`${i}`} data={item} />)
       : data instanceof Object
-      ? Object.keys(data).map((k) => <Superficial key={`Element:${k}`} data={data[k]} />)
+      ? Object.keys(data).map((k) => <Superficial key={`Element:${k}`} name={k} data={data[k]} />)
       : `${data}`;
 
-  return <div {...dataProps}>{elements}</div>;
+  return (
+    <div data-meta-superficial-name={name} {...dataProps}>
+      {elements}
+    </div>
+  );
 };
 
 export default Superficial;

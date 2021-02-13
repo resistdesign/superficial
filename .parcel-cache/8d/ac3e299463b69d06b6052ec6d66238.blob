@@ -1,0 +1,50 @@
+"use strict";
+
+var helpers = require("../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+helpers.prelude(module);
+
+try {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = exports.App = void 0;
+
+  var _react = _interopRequireDefault(require("react"));
+
+  var _SampleAST = _interopRequireDefault(require("./SampleAST"));
+
+  var _src = _interopRequireDefault(require("../src"));
+
+  var _jsxFileName = "/Users/ryan/TestProjects/superficial/example/App.tsx";
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  const App = () => {
+    return /*#__PURE__*/_react.default.createElement(_src.default, {
+      name: "Base",
+      data: _SampleAST.default,
+      __self: void 0,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 6,
+        columnNumber: 10
+      }
+    });
+  };
+
+  exports.App = App;
+  _c = App;
+  var _default = App;
+  exports.default = _default;
+
+  var _c;
+
+  $RefreshReg$(_c, "App");
+  helpers.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}

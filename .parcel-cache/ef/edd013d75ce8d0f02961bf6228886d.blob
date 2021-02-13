@@ -1,0 +1,116 @@
+"use strict";
+
+var helpers = require("../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+helpers.prelude(module);
+
+try {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = exports.Superficial = exports.getDataProps = exports.getPrefixedProps = void 0;
+
+  var _react = _interopRequireWildcard(require("react"));
+
+  var _jsxFileName = "/Users/ryan/TestProjects/superficial/src/index.tsx",
+      _s = $RefreshSig$();
+
+  function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+  function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+  function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+  const DATA_PROP_PREFIX = 'data-superficial-';
+
+  const getPrefixedProps = data => typeof data !== 'string' ? Object.keys(data).reduce((acc, k) => ({ ...acc,
+    [`${DATA_PROP_PREFIX}${k}`]: data[k]
+  }), {}) : data;
+
+  exports.getPrefixedProps = getPrefixedProps;
+
+  const getDataProps = (data, terminate = false) => {
+    if (data instanceof Array) {
+      if (terminate) {
+        return 'Object';
+      } else {
+        return {
+          length: `${data.length}`
+        };
+      }
+    } else if (data instanceof Object) {
+      if (terminate) {
+        return 'Object';
+      } else {
+        return Object.keys(data).reduce((acc, k) => ({ ...acc,
+          [k]: getDataProps(data[k], true)
+        }), {});
+      }
+    } else {
+      return `${data}`;
+    }
+  };
+
+  exports.getDataProps = getDataProps;
+
+  const Superficial = ({
+    name,
+    data
+  }) => {
+    _s();
+
+    const dataProps = (0, _react.useMemo)(() => {
+      const dP = getPrefixedProps(getDataProps(data));
+      return typeof dP === 'string' ? {} : dP;
+    }, [data]);
+    const elements = data instanceof Array ? data.map((item, i) => /*#__PURE__*/_react.default.createElement(Superficial, {
+      key: `Element:${i}`,
+      name: `${i}`,
+      data: item,
+      __self: void 0,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 57,
+        columnNumber: 31
+      }
+    })) : data instanceof Object ? Object.keys(data).map(k => /*#__PURE__*/_react.default.createElement(Superficial, {
+      key: `Element:${k}`,
+      name: k,
+      data: data[k],
+      __self: void 0,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 59,
+        columnNumber: 38
+      }
+    })) : `${data}`;
+    return /*#__PURE__*/_react.default.createElement("div", _extends({
+      "data-meta-superficial-name": name
+    }, dataProps, {
+      __self: void 0,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 63,
+        columnNumber: 5
+      }
+    }), elements);
+  };
+
+  exports.Superficial = Superficial;
+
+  _s(Superficial, "7heaIXvK8ljA9RybcTmYqwUAQwo=");
+
+  _c = Superficial;
+  var _default = Superficial;
+  exports.default = _default;
+
+  var _c;
+
+  $RefreshReg$(_c, "Superficial");
+  helpers.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
