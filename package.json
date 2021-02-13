@@ -4,6 +4,7 @@
   "description": "Easily convert data structures to React elements with data attributes that describe the properties of each item in the tree.",
   "main": "src/index.tsx",
   "scripts": {
+    "start": "parcel ./example/index.html",
     "test": "TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\"}' mocha --inline-diffs --require ./mocha-ts-node-compat.js --timeout=30000 --ui exports './src/**/*.spec.{ts,tsx}'"
   },
   "keywords": [],
@@ -22,6 +23,7 @@
     "eslint": "^7.20.0",
     "expect.js": "^0.3.1",
     "mocha": "^8.3.0",
+    "parcel": "^2.0.0-beta.1",
     "prettier": "^2.2.1",
     "ts-node": "^9.1.1",
     "tslib": "^2.1.0",
