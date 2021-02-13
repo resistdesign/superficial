@@ -10,6 +10,10 @@ const Identifier = styled.div`
 const AssignmentPattern = styled.div`
   background-color: aqua;
 `;
+const Property = styled.div`
+  background-color: chartreuse;
+  color: black;
+`;
 const ExportDefaultDeclaration = styled.div`
   background-color: darkorange;
   color: white;
@@ -24,6 +28,15 @@ const COMPONENT_MAP: { [type: string]: SuperficialFactoryComponent | undefined }
   Program: ({ data }) => <Superficial name="body" data={data?.body} componentFactory={componentFactory} />,
   ImportDeclaration: NoComp,
   VariableDeclaration: NoComp,
+  Literal: NoComp,
+  ClassDeclaration: ({ data }) => <Superficial name="body" data={data?.body} componentFactory={componentFactory} />,
+  ClassBody: ({ data }) => <Superficial name="body" data={data?.body} componentFactory={componentFactory} />,
+  Property: ({ name, data }) => (
+    <Property>
+      <Superficial name="key" data={data?.key} componentFactory={componentFactory} />
+      <Superficial name="value" data={data?.value} componentFactory={componentFactory} />
+    </Property>
+  ),
   ExportDefaultDeclaration: ({ name, data, children }) => (
     <ExportDefaultDeclaration data-name={name} data-type="AssignmentPattern">
       Default: {data?.declaration?.id?.name}
@@ -32,7 +45,6 @@ const COMPONENT_MAP: { [type: string]: SuperficialFactoryComponent | undefined }
   ),
   ClassProperty: ({ name, data, children }) => (
     <ClassProperty data-name={name} data-type="AssignmentPattern">
-      <pre>{JSON.stringify(data, null, 2)}</pre>
       {children}
     </ClassProperty>
   ),
