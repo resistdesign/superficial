@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from 'react';
+import React, { ComponentType, FC, useMemo } from 'react';
 
 type StringObject = { [key: string]: string };
 
@@ -44,9 +44,10 @@ export const getDataProps = (data: any, terminate = false): { [key: string]: str
 export type SuperficialProps = {
   name: string;
   data: any;
+  getComponent?: (info: { name: string; data: any }) => ComponentType;
 };
 
-export const Superficial: FC<SuperficialProps> = ({ name, data }) => {
+export const Superficial: FC<SuperficialProps> = ({ name, data, getComponent }) => {
   const dataProps = useMemo(() => {
     const dP = getPrefixedProps(getDataProps(data));
 
@@ -54,16 +55,20 @@ export const Superficial: FC<SuperficialProps> = ({ name, data }) => {
   }, [data]);
   const elements =
     data instanceof Array
-      ? data.map((item, i) => <Superficial key={`Element:${i}`} name={`${i}`} data={item} />)
+      ? data.map((item, i) => <Superficial key={`Element:${i}`} name={`${i}`} data={item} getComponent={getComponent} />)
       : data instanceof Object
-      ? Object.keys(data).map((k) => <Superficial key={`Element:${k}`} name={k} data={data[k]} />)
+      ? Object.keys(data).map((k) => <Superficial key={`Element:${k}`} name={k} data={data[k]} getComponent={getComponent} />)
       : `${data}`;
+  const Comp = (getComponent && getComponent({ name, data })) || 'div';
+  const compProps =
+    typeof Comp === 'string'
+      ? {
+          ...dataProps,
+          'data-meta-superficial-name': name,
+        }
+      : {};
 
-  return (
-    <div data-meta-superficial-name={name} {...dataProps}>
-      {elements}
-    </div>
-  );
+  return <Comp {...compProps}>{elements}</Comp>;
 };
 
 export default Superficial;
