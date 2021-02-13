@@ -1,0 +1,58 @@
+body {
+    font-family: sans-serif;
+}
+
+div {
+    padding: 0.5em;
+    box-sizing: border-box;
+}
+
+[data-superficial-type='AssignmentPattern'],
+[data-superficial-type='ClassProperty'],
+[data-superficial-type='GenericTypeAnnotation'],
+[data-superficial-type='Identifier'],
+[data-superficial-type='ImportDefaultSpecifier'],
+[data-superficial-type='ImportSpecifier'],
+[data-superficial-type='VariableDeclarator'] {
+    border: 0.05em solid cornflowerblue;
+}
+
+[data-meta-superficial-name='id'] {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+[data-meta-superficial-name='raw'] {
+    display: none;
+}
+
+[data-meta-superficial-name='type'] {
+    display: none;
+}
+
+[data-meta-superficial-name='name'] {
+    background-color: cornflowerblue;
+    border-radius: 0.5em;
+
+    color: white;
+}
+
+[data-meta-superficial-name='range'],
+[data-meta-superficial-name='loc'] {
+    display: none;
+}
+
+[data-meta-superficial-name='start'],
+[data-meta-superficial-name='end'] {
+    padding: 0;
+}
+
+[data-meta-superficial-name='source'] {
+    background-color: lightcyan;
+    font-family: monospace;
+    white-space: pre;
+}
+
+/*# sourceMappingURL=style.9b6c6900.css.map */

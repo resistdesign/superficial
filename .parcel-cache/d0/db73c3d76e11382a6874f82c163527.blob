@@ -23,7 +23,6 @@ div {
 
 [data-meta-superficial-name='comments'],
 [data-meta-superficial-name='errors'],
-[data-meta-superficial-name='exportKind'],
 [data-meta-superficial-name='imported'],
 [data-meta-superficial-name='importKind'],
 [data-meta-superficial-name='loc'],

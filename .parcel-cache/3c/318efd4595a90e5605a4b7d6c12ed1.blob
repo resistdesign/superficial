@@ -23,9 +23,7 @@ div {
 
 [data-meta-superficial-name='comments'],
 [data-meta-superficial-name='errors'],
-[data-meta-superficial-name='exportKind'],
 [data-meta-superficial-name='imported'],
-[data-meta-superficial-name='importKind'],
 [data-meta-superficial-name='loc'],
 [data-meta-superficial-name='range'],
 [data-meta-superficial-name='raw'],
@@ -39,12 +37,7 @@ div {
     padding: 0;
 }
 
-[data-meta-superficial-name='kind'] {
-    background-color: cornflowerblue;
-    color: white;
-    border-radius: 0.5em;
-}
-
+[data-meta-superficial-name='kind'],
 [data-superficial-type='AssignmentPattern'],
 [data-superficial-type='ClassProperty'],
 [data-superficial-type='GenericTypeAnnotation'],
@@ -82,5 +75,3 @@ div {
 [data-meta-superficial-name='end'] {
     padding: 0;
 }
-
-/*# sourceMappingURL=style.9b6c6900.css.map */

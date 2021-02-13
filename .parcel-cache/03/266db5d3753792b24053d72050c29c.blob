@@ -1,48 +1,14 @@
-html,
-body,
-#app-root {
-    margin: 0;
-    padding: 0;
-}
-
 body {
     font-family: sans-serif;
 }
 
 div {
-    flex: 1 0 auto;
     padding: 0.5em;
     box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    gap: 0.5em;
-}
-
-[data-meta-superficial-name='comments'],
-[data-meta-superficial-name='errors'],
-[data-meta-superficial-name='exportKind'],
-[data-meta-superficial-name='imported'],
-[data-meta-superficial-name='importKind'],
-[data-meta-superficial-name='loc'],
-[data-meta-superficial-name='range'],
-[data-meta-superficial-name='raw'],
-[data-meta-superficial-name='source'],
-[data-meta-superficial-name='type'],
-[data-meta-superficial-name='value'] {
-    display: none;
 }
 
 [data-meta-superficial-name="properties"] {
     padding: 0;
-}
-
-[data-meta-superficial-name='kind'] {
-    background-color: cornflowerblue;
-    color: white;
-    border-radius: 0.5em;
 }
 
 [data-superficial-type='AssignmentPattern'],
@@ -52,7 +18,6 @@ div {
 [data-superficial-type='ImportDefaultSpecifier'],
 [data-superficial-type='ObjectExpression'],
 [data-superficial-type='ImportSpecifier'] {
-    border-radius: 0.5em;
     border: 0.05em solid cornflowerblue;
     display: flex;
     flex-direction: row;
@@ -61,7 +26,7 @@ div {
 }
 
 [data-superficial-type='Identifier'] {
-    background-color: #eeeeee;
+    background-color: #aaaaaa;
 }
 
 [data-meta-superficial-name='id'] {
@@ -71,6 +36,14 @@ div {
     justify-content: flex-start;
 }
 
+[data-meta-superficial-name='raw'] {
+    display: none;
+}
+
+[data-meta-superficial-name='type'] {
+    display: none;
+}
+
 [data-meta-superficial-name='name'] {
     background-color: cornflowerblue;
     border-radius: 0.5em;
@@ -78,9 +51,19 @@ div {
     color: white;
 }
 
+[data-meta-superficial-name='imported'],
+[data-meta-superficial-name='range'],
+[data-meta-superficial-name='loc'] {
+    display: none;
+}
+
 [data-meta-superficial-name='start'],
 [data-meta-superficial-name='end'] {
     padding: 0;
 }
 
-/*# sourceMappingURL=style.9b6c6900.css.map */
+[data-meta-superficial-name='source'] {
+    background-color: lightcyan;
+    font-family: monospace;
+    white-space: pre;
+}
