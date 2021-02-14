@@ -16,7 +16,29 @@ type ASTTypeInfoTransformMap = {
   [astType: string]: (astData: ASTInfo, map: APISurfaceMap, populateMap: (astData: any) => void) => void;
 };
 
-const getASTDateType = (astData: any, expand?: boolean, mergeObjectData?: { [key: string]: any }, parentKey: string | number = ''): any => {
+const mergeASTObjects = (a: { [key: string]: any } = {}, b: { [key: string]: any } = {}): { [key: string]: any } => ({
+  ...a,
+  ...b,
+  ...Object.keys(b).reduce((acc, k) => {
+    const aK = a[k];
+    const bK = b[k];
+
+    if (aK instanceof Array && bK instanceof Array) {
+      return {
+        ...acc,
+        [k]: [...aK, ...bK].reduce((acc2, item) => (acc2.indexOf(item) === -1 ? [...acc2, item] : acc2), []),
+      };
+    } else if (aK instanceof Object && bK instanceof Object) {
+      return {
+        ...acc,
+        [k]: mergeASTObjects(aK, bK),
+      };
+    }
+
+    return acc;
+  }, {}),
+});
+const getASTDateType = (astData: any, expand?: boolean, mergeObjectData: { [key: string]: any } = {}, parentKey: string | number = ''): any => {
   if (astData instanceof Array) {
     return astData
       .map((item, index) => getASTDateType(item, false, undefined, index))
@@ -27,23 +49,20 @@ const getASTDateType = (astData: any, expand?: boolean, mergeObjectData?: { [key
     } else if (astData.constructor && astData.constructor !== Object && typeof astData.constructor.name === 'string') {
       return astData.constructor.name;
     } else {
-      const merged = {
-        ...mergeObjectData,
-        ...astData,
-      };
-      const result: { [key: string]: any } = Object.keys(merged).reduce(
+      const result: { [key: string]: any } = Object.keys(astData).reduce(
         (acc, k) => ({
           ...acc,
-          [k]: parentKey === 'loc' && k === 'source' ? 'string | null' : getASTDateType(merged[k], false, undefined, k),
+          [k]: parentKey === 'loc' && k === 'source' ? 'string | null' : getASTDateType(astData[k], false, undefined, k),
         }),
         {}
       );
+      const merged = mergeASTObjects(mergeObjectData, result);
 
-      if (typeof merged.type === 'string') {
-        result.type = merged.type;
+      if (typeof astData.type === 'string') {
+        merged.type = astData.type;
       }
 
-      return result;
+      return merged;
     }
   } else if (astData === null) {
     return 'null';
@@ -109,7 +128,7 @@ const COMPONENT_MAP: { [type: string]: SuperficialFactoryComponent | undefined }
   Literal: NoComp,
   ClassDeclaration: ({ data }) => <Superficial name="body" data={data?.body} componentFactory={componentFactory} />,
   ClassBody: ({ data }) => <Superficial name="body" data={data?.body} componentFactory={componentFactory} />,
-  Property: ({ name, data }) => (
+  Property: ({ data }) => (
     <Property>
       <Superficial name="key" data={data?.key} componentFactory={componentFactory} />
       <Superficial name="value" data={data?.value} componentFactory={componentFactory} />
@@ -121,7 +140,7 @@ const COMPONENT_MAP: { [type: string]: SuperficialFactoryComponent | undefined }
       {children}
     </ExportDefaultDeclaration>
   ),
-  ClassProperty: ({ name, data, children }) => (
+  ClassProperty: ({ name, children }) => (
     <ClassProperty data-name={name} data-type="AssignmentPattern">
       {children}
     </ClassProperty>
