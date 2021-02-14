@@ -74,7 +74,7 @@ const getASTDateType = (astData: any, expand?: boolean, mergeObjectData: { [key:
 const API_SURFACE_MAP: APISurfaceMap = {
   namedExports: [],
 };
-const TYPE_COLLECTION_MAP: { [type: string]: any } = {};
+let TYPE_COLLECTION_MAP: { [type: string]: any } = {};
 const AST_TYPE_INFO_TRANSFORM_MAP: ASTTypeInfoTransformMap = {
   ExportDefaultDeclaration: (astData, map, populateMap) => {
     map.defaultExport = astData;
@@ -99,6 +99,16 @@ const populateAPISurfaceMap = (astData: any) => {
 };
 
 populateAPISurfaceMap(SampleAST);
+
+TYPE_COLLECTION_MAP = Object.keys(TYPE_COLLECTION_MAP)
+  .sort()
+  .reduce(
+    (acc, k) => ({
+      ...acc,
+      [k]: TYPE_COLLECTION_MAP[k],
+    }),
+    {}
+  );
 
 const Identifier = styled.div`
   background-color: darkorchid;
