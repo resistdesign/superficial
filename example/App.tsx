@@ -17,7 +17,13 @@ type ASTTypeInfoTransformMap = {
   [astType: string]: (astData: ASTInfo, map: APISurfaceMap, populateMap: (astData: any) => void) => void;
 };
 
-const AllNamedTypes = Object.keys(NamedTypes);
+const TypeNames: { [key in keyof typeof NamedTypes]: string } = Object.keys(NamedTypes).reduce(
+  (acc, k) => ({
+    ...acc,
+    [k]: k,
+  }),
+  {} as any
+);
 const mergeASTObjects = (a: { [key: string]: any } = {}, b: { [key: string]: any } = {}): { [key: string]: any } => ({
   ...a,
   ...b,
@@ -133,7 +139,7 @@ const ClassProperty = styled.div`
 `;
 const NoComp = () => null;
 
-const COMPONENT_MAP: { [type: string]: SuperficialFactoryComponent | undefined } = {
+const COMPONENT_MAP: { [key in keyof typeof TypeNames]?: SuperficialFactoryComponent | undefined } = {
   Program: ({ data }) => <Superficial name="body" data={data?.body} componentFactory={componentFactory} />,
   ImportDeclaration: NoComp,
   VariableDeclaration: NoComp,
@@ -147,7 +153,7 @@ const COMPONENT_MAP: { [type: string]: SuperficialFactoryComponent | undefined }
     </Property>
   ),
   ExportDefaultDeclaration: ({ name, data, children }) => (
-    <ExportDefaultDeclaration data-name={name} data-type="AssignmentPattern">
+    <ExportDefaultDeclaration data-name={name} data-type="ExportDefaultDeclaration">
       Default: {data?.declaration?.id?.name}
       {children}
     </ExportDefaultDeclaration>
@@ -168,16 +174,16 @@ const COMPONENT_MAP: { [type: string]: SuperficialFactoryComponent | undefined }
     </Identifier>
   ),
 };
-const componentFactory: SuperficialComponentFactory = ({ data }) => data && typeof data.type === 'string' && COMPONENT_MAP[data.type];
+const componentFactory: SuperficialComponentFactory = ({ data }) =>
+  data && typeof data.type === 'string' && COMPONENT_MAP[data.type as keyof typeof COMPONENT_MAP];
 
 export const App: FC = () => {
   return (
     <>
       <ReactJson src={TYPE_COLLECTION_MAP} collapsed theme="monokai" displayObjectSize={false} displayDataTypes={false} />
-      <ReactJson src={AllNamedTypes} collapsed theme="monokai" displayObjectSize={false} displayDataTypes={false} groupArraysAfterLength={Infinity} />
+      <Superficial name="Base" data={SampleAST} componentFactory={componentFactory} />
     </>
   );
-  // return <Superficial name="Base" data={SampleAST} componentFactory={componentFactory} />;
 };
 
 export default App;
