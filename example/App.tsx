@@ -138,6 +138,11 @@ const ClassProperty = styled.div`
   background-color: chocolate;
   color: yellow;
 `;
+const GenericTypeAnnotation = styled.div`
+  border-radius: 0.5em;
+  border-color: cornflowerblue;
+  color: cornflowerblue;
+`;
 const NoComp = () => null;
 
 const COMPONENT_MAP: { [key in keyof typeof TypeNames]?: SuperficialFactoryComponent | undefined } = {
@@ -174,6 +179,7 @@ const COMPONENT_MAP: { [key in keyof typeof TypeNames]?: SuperficialFactoryCompo
       {data?.name}
     </Identifier>
   ),
+  GenericTypeAnnotation: ({ data }) => <GenericTypeAnnotation>{data?.id?.name}</GenericTypeAnnotation>,
 };
 const componentFactory: SuperficialComponentFactory = ({ data }) =>
   data && typeof data.type === 'string' && COMPONENT_MAP[data.type as keyof typeof COMPONENT_MAP];
