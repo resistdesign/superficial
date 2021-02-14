@@ -3,6 +3,7 @@ import SampleAST from './SampleAST';
 import Superficial, { SuperficialComponentFactory, SuperficialFactoryComponent } from '../src';
 import styled from 'styled-components';
 import ReactJson from 'react-json-view';
+import { namedTypes as NamedTypes } from 'ast-types';
 
 type ASTInfo = {
   type: string;
@@ -16,6 +17,7 @@ type ASTTypeInfoTransformMap = {
   [astType: string]: (astData: ASTInfo, map: APISurfaceMap, populateMap: (astData: any) => void) => void;
 };
 
+const AllNamedTypes = Object.keys(NamedTypes);
 const mergeASTObjects = (a: { [key: string]: any } = {}, b: { [key: string]: any } = {}): { [key: string]: any } => ({
   ...a,
   ...b,
@@ -172,6 +174,7 @@ export const App: FC = () => {
   return (
     <>
       <ReactJson src={TYPE_COLLECTION_MAP} collapsed theme="monokai" displayObjectSize={false} displayDataTypes={false} />
+      <ReactJson src={AllNamedTypes} collapsed theme="monokai" displayObjectSize={false} displayDataTypes={false} groupArraysAfterLength={Infinity} />
     </>
   );
   // return <Superficial name="Base" data={SampleAST} componentFactory={componentFactory} />;
