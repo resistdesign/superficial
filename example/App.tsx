@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import SampleAST from './SampleAST';
 import Superficial, { SuperficialComponentFactory, SuperficialFactoryComponent } from '../src';
 import styled from 'styled-components';
+import ReactJson from 'react-json-view';
 
 type ASTInfo = {
   type: string;
@@ -15,9 +16,11 @@ type ASTTypeInfoTransformMap = {
   [astType: string]: (astData: ASTInfo, map: APISurfaceMap, populateMap: (astData: any) => void) => void;
 };
 
-const getASTDateType = (astData: any, expand?: boolean, mergeObjectData?: { [key: string]: any }): any => {
+const getASTDateType = (astData: any, expand?: boolean, mergeObjectData?: { [key: string]: any }, parentKey: string | number = ''): any => {
   if (astData instanceof Array) {
-    return astData.map((item) => getASTDateType(item)).reduce((acc, item) => (acc.indexOf(item) === -1 ? [...acc, item] : acc), []);
+    return astData
+      .map((item, index) => getASTDateType(item, false, undefined, index))
+      .reduce((acc, item) => (acc.indexOf(item) === -1 ? [...acc, item] : acc), []);
   } else if (astData instanceof Object) {
     if (typeof astData.type === 'string' && !expand) {
       return astData.type;
@@ -28,8 +31,19 @@ const getASTDateType = (astData: any, expand?: boolean, mergeObjectData?: { [key
         ...mergeObjectData,
         ...astData,
       };
+      const result: { [key: string]: any } = Object.keys(merged).reduce(
+        (acc, k) => ({
+          ...acc,
+          [k]: parentKey === 'loc' && k === 'source' ? 'string | null' : getASTDateType(merged[k], false, undefined, k),
+        }),
+        {}
+      );
 
-      return Object.keys(merged).reduce((acc, k) => ({ ...acc, [k]: getASTDateType(merged[k]) }), {});
+      if (typeof merged.type === 'string') {
+        result.type = merged.type;
+      }
+
+      return result;
     }
   } else if (astData === null) {
     return 'null';
@@ -54,7 +68,7 @@ const populateAPISurfaceMap = (astData: any) => {
     astData.forEach((item) => populateAPISurfaceMap(item));
   } else if (astData instanceof Object) {
     if (typeof astData.type === 'string') {
-      TYPE_COLLECTION_MAP[astData.type] = getASTDateType(astData, true, TYPE_COLLECTION_MAP[astData.type]);
+      TYPE_COLLECTION_MAP[astData.type] = getASTDateType(astData, true, TYPE_COLLECTION_MAP[astData.type], astData.type);
     }
 
     if (typeof astData.type === 'string' && AST_TYPE_INFO_TRANSFORM_MAP[astData.type] instanceof Function) {
@@ -128,8 +142,7 @@ const componentFactory: SuperficialComponentFactory = ({ data }) => data && type
 export const App: FC = () => {
   return (
     <>
-      <pre>{JSON.stringify(TYPE_COLLECTION_MAP, null, 2)}</pre>
-      <pre>{JSON.stringify(API_SURFACE_MAP, null, 2)}</pre>
+      <ReactJson src={TYPE_COLLECTION_MAP} collapsed theme="monokai" displayObjectSize={false} displayDataTypes={false} />
     </>
   );
   // return <Superficial name="Base" data={SampleAST} componentFactory={componentFactory} />;

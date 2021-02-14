@@ -26,6 +26,7 @@
     "mocha": "^8.3.0",
     "parcel": "^2.0.0-beta.1",
     "prettier": "^2.2.1",
+    "react-json-view": "^1.21.1",
     "styled-components": "^5.2.1",
     "ts-node": "^9.1.1",
     "tslib": "^2.1.0",
