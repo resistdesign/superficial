@@ -4,6 +4,7 @@ import Superficial, { SuperficialComponentFactory, SuperficialFactoryComponent }
 import styled from 'styled-components';
 import ReactJson from 'react-json-view';
 import { namedTypes as NamedTypes } from 'ast-types';
+import { namedTypes as NT } from 'ast-types/gen/namedTypes';
 
 type ASTInfo = {
   type: string;
@@ -140,7 +141,7 @@ const ClassProperty = styled.div`
 const NoComp = () => null;
 
 const COMPONENT_MAP: { [key in keyof typeof TypeNames]?: SuperficialFactoryComponent | undefined } = {
-  Program: ({ data }) => <Superficial name="body" data={data?.body} componentFactory={componentFactory} />,
+  Program: ({ data }: { data: NT.Program }) => <Superficial name="body" data={data?.body} componentFactory={componentFactory} />,
   ImportDeclaration: NoComp,
   VariableDeclaration: NoComp,
   Literal: NoComp,
